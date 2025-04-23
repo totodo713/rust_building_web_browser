@@ -14,7 +14,7 @@ else
 	mkdir $TARGET_PATH
 fi
 
-if [ -d $OS_PATH]
+if [ -d $OS_PATH ]
 then
   echo $OS_PATH" exists."
   echo "pulling new changes..."
@@ -35,5 +35,5 @@ if [ ! -f $MAKEFILE_PATH ]; then
 fi
 
 make build
-$OS_PATH/scripts/run_with_app.sh .target/x86_64-unknown-none/release/$APP_NAME
+$OS_PATH/scripts/run_with_app.sh ./target/x86_64-unknown-none/release/$APP_NAME
 
