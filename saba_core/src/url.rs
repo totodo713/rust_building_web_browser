@@ -9,3 +9,14 @@ pub struct Url {
     searchpart: String,
 }
 
+impl Url {
+    pub fn new(url: String) -> Self {
+        Self {
+            url,
+            host: "".to_string(),
+            port: "".to_string(),
+            path: "".to_string(),
+            searchpart: "".to_string(),
+        }
+    }
+}
