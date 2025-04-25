@@ -25,4 +25,11 @@ impl Url {
             return Err("Only HTTP scheme is supported.".to_string());
         }
     }
+
+    pub fn is_http(&mut self) -> bool {
+        if self.url.contains("http://") {
+            return true;
+        }
+        false
+    }
 }
