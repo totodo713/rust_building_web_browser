@@ -40,6 +40,19 @@ impl Url {
         }
         false
     }
+    
+    pub fn host(&self) -> String {
+        self.host.clone()
+    }
+    pub fn port(&self) -> String {
+        self.port.clone()
+    }
+    pub fn path(&self) -> String {
+        self.path.clone()
+    }
+    pub fn searchpart(&self) -> String {
+        self.searchpart.clone()
+    }
 
     fn extract_host(&self) -> String {
         let url_parts: Vec<&str> = self
