@@ -81,7 +81,7 @@ impl Url {
         
 
         let path_and_searchpart: Vec<&str> = url_parts[1].splitn(2, "?").collect();
-        parth_and_searchpart[0].to_string()
+        path_and_searchpart[0].to_string()
     }
 
     fn extract_searchpart(&self) -> String {
