@@ -1,6 +1,7 @@
 extern crate alloc;
 use alloc::format;
 use alloc::string::String;
+use alloc::vec::Vec;
 use crate::alloc::string::ToString;
 use saba_core::error::Error;
 use saba_core::http::HttpResponse;
@@ -53,6 +54,23 @@ impl HttpClient {
                 return Err(Error::Network("Failed to send a request to TCP stream".to_string()))
             }
         };
+
+        let mut received = Vec::new();
+        loop {
+            let mut buf = [0u8; 4096];
+            let bytes_read = match strream.read(&mut buf) {
+                Ok(bytes) => bytes,
+                Err(_) => {
+                    return Err(Error::Network("Failed to receive a request from TCP stream".to_string()))
+                }
+            };
+
+            if bytes_read == 0 {
+                break;
+            }
+
+            received.extend_from_slice(&buf[..bytes_read]);
+        }
     }
 }
 
