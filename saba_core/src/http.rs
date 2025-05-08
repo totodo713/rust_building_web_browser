@@ -1,5 +1,6 @@
 use alloc::string::String;
 use alloc::vec::Vec;
+use crate::error::Error;
 
 #[derive(Debug, Clone)]
 pub struct HttpResponse {
@@ -24,6 +25,7 @@ impl Header {
 
 impl HttpResponse {
     pub fn new(raw_response: String) -> Result<Self, Error> {
+        let preprocessed_response = raw_response.trim_start().replace("\n\r", "\n");
     }
 }
 
