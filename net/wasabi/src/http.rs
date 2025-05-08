@@ -2,7 +2,7 @@ extern crate alloc;
 use alloc::format;
 use alloc::string::String;
 use alloc::vec::Vec;
-use crate::alloc::string::ToString;
+use alloc::string::ToString;
 use saba_core::error::Error;
 use saba_core::http::HttpResponse;
 use noli::net::lookup_host;
