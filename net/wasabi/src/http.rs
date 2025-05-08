@@ -38,6 +38,14 @@ impl HttpClient {
         let mut request = String::from("GET /");
         request.push_str(&path);
         request.push_str(" HTTP/1.1\n");
+
+        // ヘッダの追加
+        request.push_str("Host: ");
+        request.push_str(&host);
+        request.push('\n');
+        request.push_str("Accept: text/html\n");
+        request.push_str("Connection: close\n");
+        request.push('\n');
     }
 }
 
