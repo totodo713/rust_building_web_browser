@@ -84,7 +84,7 @@ impl HttpResponse {
         self.body.clone()
     }
 
-    pub fn header_value(self, name: &str) -> Result<String, String> {
+    pub fn header_value(&self, name: &str) -> Result<String, String> {
         for h in &self.headers {
             if h.name == name {
                 return Ok(h.value.clone());
