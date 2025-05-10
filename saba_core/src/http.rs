@@ -32,7 +32,7 @@ impl HttpResponse {
             None => {
                 return Err(Error::Network(format!(
                             "invalid http response: {}",
-                            preprocessed_response)))
+                            preprocessed_response)));
             }
         }
     };
