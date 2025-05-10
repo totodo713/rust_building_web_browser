@@ -1,4 +1,5 @@
 use alloc::string::String;
+use crate::alloc::string::ToString;
 use alloc::vec::Vec;
 use crate::error::Error;
 
@@ -90,6 +91,20 @@ impl HttpResponse {
         }
 
         Err(format!("failed to find {} in headers", name))
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_status_line_only() {
+        let raw = "HTTP/1.1 200 OK\n\n".to_string();
+        let res = HttpResponse::new(raw).expected("failed to parse http response");
+        assert_eq!(res.version(), "HTTP/1.1");
+        assert_eq!(res.Status_code(), 200);
+        assert_eq!(res.reason(), "OK");
     }
 }
 
