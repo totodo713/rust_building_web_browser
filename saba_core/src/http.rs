@@ -2,6 +2,7 @@ use alloc::string::String;
 use crate::alloc::string::ToString;
 use alloc::vec::Vec;
 use crate::error::Error;
+use alloc::format;
 
 #[derive(Debug, Clone)]
 pub struct HttpResponse {
@@ -35,13 +36,13 @@ impl HttpResponse {
                             "invalid http response: {}",
                             preprocessed_response)));
             }
-        }
+        };
 
         let (headers, body) = match remaining.split_once("\n\n") {
             Some((h, b)) => {
                 let mut headers = Vec::new();
                 for header in h.split('\n') {
-                    let splitted_header: Vec<'str> = header.splitn(2, ':').collect();
+                    let splitted_header: Vec<&str> = header.splitn(2, ':').collect();
                     headers.push(Header::new(
                             String::from(splitted_header[0].trim()),
                             String::from(splitted_header[1].trim()),
@@ -55,7 +56,7 @@ impl HttpResponse {
         let statuses: Vec<&str> = status_line.split(' ').collect();
 
         Ok(Self {
-            version: sttuses[0].to_string(),
+            version: statuses[0].to_string(),
             status_code: statuses[1].parse().unwrap_or(404),
             reason: statuses[2].to_string(),
             headers,
@@ -101,9 +102,9 @@ mod tests {
     #[test]
     fn test_status_line_only() {
         let raw = "HTTP/1.1 200 OK\n\n".to_string();
-        let res = HttpResponse::new(raw).expected("failed to parse http response");
+        let res = HttpResponse::new(raw).expect("failed to parse http response");
         assert_eq!(res.version(), "HTTP/1.1");
-        assert_eq!(res.Status_code(), 200);
+        assert_eq!(res.status_code(), 200);
         assert_eq!(res.reason(), "OK");
     }
 }
